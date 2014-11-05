@@ -1,2 +1,7 @@
 #load the weibull libraries
-install.packages("weibulltoolkit",repos="http://cran.rstudio.com/")
+install.packages("Rcpp",repos="http://cran.r-project.org")
+install.packages("RcppArmadillo",repos="http://cran.r-project.org")
+install.packages("pivotals",repos="http://R-Forge.R-project.org")
+install.packages("debias",repos="http://R-Forge.R-project.org")
+install.packages("abremPivotals",repos="http://R-Forge.R-project.org")
+install.packages("abrem",repos="http://R-Forge.R-project.org")
