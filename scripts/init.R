@@ -1,2 +1,2 @@
 #load the weibull libraries
-install.packages("weibulltoolkit")
+install.packages("weibulltoolkit",repos="http://cran.rstudio.com/")
