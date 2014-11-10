@@ -3,11 +3,13 @@
 #source("/home/ec2-user/git/weibull/src/calc.R")
 #"beta = 3.31363465580381"
 #"eta = 130895.039243954" 
+#"results= 66371.7972451016" "results= 32659.8667437512"
 
 library(survival)
 library(abrem)
+library(jsonlite)
 
-doWeibull <- function(fTimeVector) {
+doWeibull <- function(fTimeVector,bFactors) {
 	d <- data.frame(ob=fTimeVector, state=1) 
 	s <- Surv(d$ob,d$state)
 	sr <- survreg(s~1,dist="weibull")
@@ -19,5 +21,12 @@ doWeibull <- function(fTimeVector) {
 	return(v)
 }
 
-results <- doWeibull(c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329))
+inJSON <- paste('{"failTimes":[149971, 70808, 133518, 145658,175701, 50960, 126606, 82329],"bFactors":[0.1,0.01]}')
+inData <- fromJSON(inJSON)
+
+fTimeVector <- inData$failTimes
+bFactors <- inData$bFactors
+
+#results <- doWeibull(c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329),c(0.1,0.01))
+results <- doWeibull(fTimeVector,bFactors)
 print(paste("results=",results))
