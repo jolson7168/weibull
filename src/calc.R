@@ -9,7 +9,7 @@ library(survival)
 library(abrem)
 library(jsonlite)
 
-doWeibull <- function(fTimeVector,bFactors) {
+calcWeibull <- function(fTimeVector,bFactors) {
 	d <- data.frame(ob=fTimeVector, state=1) 
 	s <- Surv(d$ob,d$state)
 	sr <- survreg(s~1,dist="weibull")
@@ -21,16 +21,15 @@ doWeibull <- function(fTimeVector,bFactors) {
 	return(v)
 }
 
-inJSON <- paste('{"failTimes":[149971, 70808, 133518, 145658,175701, 50960, 126606, 82329],"bFactors":[0.1,0.01]}')
-inData <- fromJSON(inJSON)
+doWeibull <-function(bodyStr) {
 
-fTimeVector <- inData$failTimes
-bFactors <- inData$bFactors
+	#inJSON <- paste('{"failTimes":[149971, 70808, 133518, 145658,175701, 50960, 126606, 82329],"bFactors":[0.1,0.01]}')
+	#results <- doWeibull(c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329),c(0.1,0.01))
 
-#results <- doWeibull(c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329),c(0.1,0.01))
-results <- doWeibull(fTimeVector,bFactors)
-outputObj <- data.frame(bFactors, results)
-#outputObj$bFactors <- bFactors
-#outputObj$timeEstimates <- results
-outputStr <-  paste(toJSON(outputObj, pretty=TRUE))
-print(outputStr)
+	inData <- fromJSON(bodyStr)
+	results <- doWeibull(inData$failTimes,inData$bFactors)
+
+	outputObj <- data.frame(bFactors, results)
+	return(paste(toJSON(outputObj, pretty=TRUE)))
+
+}
