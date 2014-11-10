@@ -14,7 +14,7 @@ calcWeibull <- function(fTimeVector,bFactors) {
 	eta <- exp(sr$coefficients[1])
 	#print(paste("beta =", beta))
 	#print(paste("eta =", eta)) 
-	v <- qweibull(c(0.1,0.01),beta,eta)
+	v <- qweibull(bFactors,beta,eta)
 	return(v)
 }
 
