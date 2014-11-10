@@ -29,4 +29,8 @@ bFactors <- inData$bFactors
 
 #results <- doWeibull(c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329),c(0.1,0.01))
 results <- doWeibull(fTimeVector,bFactors)
-print(paste("results=",results))
+
+outputObj$bFactors <- bFactors
+outputObj$timeEstimates <- results
+outputStr <-  paste(toJSON(outputObj, pretty=TRUE))
+print("Out = ",outputStr)
