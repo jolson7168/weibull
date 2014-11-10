@@ -24,7 +24,7 @@ doWeibull <-function(bodyStr) {
 	#results <- doWeibull(c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329),c(0.1,0.01))
 
 	inData <- fromJSON(bodyStr)
-	results <- doWeibull(inData$failTimes,inData$bFactors)
+	results <- calcWeibull(inData$failTimes,inData$bFactors)
 
 	outputObj <- data.frame(bFactors, results)
 	return(paste(toJSON(outputObj, pretty=TRUE)))
