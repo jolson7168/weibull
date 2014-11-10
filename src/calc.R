@@ -7,8 +7,8 @@
 library(survival)
 library(abrem)
 
-doWeibull <- function() {
-	d <- data.frame(ob=c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329), state=1) 
+doWeibull <- function(fTimeVector) {
+	d <- data.frame(ob=fTimeVector, state=1) 
 	s <- Surv(d$ob,d$state)
 	sr <- survreg(s~1,dist="weibull")
 	beta <- (1/sr$scale)
@@ -19,5 +19,5 @@ doWeibull <- function() {
 	return(v)
 }
 
-results <- doWeibull()
+results <- doWeibull(c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329))
 print(paste("results=",results))
