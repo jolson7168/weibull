@@ -7,12 +7,17 @@
 library(survival)
 library(abrem)
 
-d <- data.frame(ob=c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329), state=1) 
-s <- Surv(d$ob,d$state)
-sr <- survreg(s~1,dist="weibull")
-beta <- (1/sr$scale)
-eta <- exp(sr$coefficients[1])
-print(paste("beta =", beta))
-print(paste("eta =", eta)) 
-v <- qweibull(c(0.1,0.01),beta,eta)
-print(paste("v=",v))
+doWeibull <- function() {
+	d <- data.frame(ob=c(149971, 70808, 133518, 145658,175701, 50960, 126606, 82329), state=1) 
+	s <- Surv(d$ob,d$state)
+	sr <- survreg(s~1,dist="weibull")
+	beta <- (1/sr$scale)
+	eta <- exp(sr$coefficients[1])
+	#print(paste("beta =", beta))
+	#print(paste("eta =", eta)) 
+	v <- qweibull(c(0.1,0.01),beta,eta)
+	return(v)
+}
+
+results <- doWeibull()
+print(paste("results=",results))
