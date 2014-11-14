@@ -7,7 +7,7 @@ library(jsonlite)
 library(survival)
 library(abrem)
 
-
+#split this off ASAP
 calcWeibull <- function(fTimeVector,bFactors) {
 	d <- data.frame(ob=fTimeVector, state=1) 
 	s <- Surv(d$ob,d$state)
