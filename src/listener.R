@@ -15,6 +15,11 @@ calcWeibull <- function(fTimeVector,bFactors) {
 	beta <- (1/sr$scale)
 	eta <- exp(sr$coefficients[1])
 	v <- qweibull(bFactors,beta,eta)
+	plot1.1Object<-Abrem(fTimeVector)
+	plot1.1Object<-abrem.fit(plot1.1Object)
+	jpeg('/var/www/html/plot.jpg')
+	plot(plot1.1Object, main="Weibull Plot")
+	dev.off()
 	return(v)
 }
 
@@ -22,7 +27,8 @@ doWeibull <-function(bodyStr) {
 
 	inData <- fromJSON(bodyStr)
 	results <- calcWeibull(inData$failTimes,inData$bFactors)
-	return(paste(toJSON(data.frame(inData$bFactors, results), pretty=TRUE)))
+	plotURL <- paste("http://weibull.kpit.com/webdav/html/plot.jpg")
+	return(paste(toJSON(data.frame(inData$bFactors, results,plotURL), pretty=TRUE)))
 
 }
 
